@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.pyc
+
+# Terraform
+*.tfstate
+*.tfstate.backup
+.terraform/
+
+# Docker
+*.log
+
+# System
+.DS_Store
+
+# Jenkins
+workspace/
