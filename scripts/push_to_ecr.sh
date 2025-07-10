@@ -1,5 +1,12 @@
 #!/bin/bash
-# Login and push Docker images to ECR
-$(aws ecr get-login --no-include-email --region us-east-1)
-docker tag booking-service:latest <aws_account_id>.dkr.ecr.us-east-1.amazonaws.com/booking-service
-docker push <aws_account_id>.dkr.ecr.us-east-1.amazonaws.com/booking-service
+AWS_REGION="us-east-1"
+AWS_ACCOUNT_ID="<your_account_id>"
+
+SERVICES=("booking" "payment" "user")
+
+for service in "${SERVICES[@]}"; do
+  docker build -t $service ./services/$service
+  docker tag $service:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$service-service:latest
+  aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
+  docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$service-service:latest
+done

@@ -1,23 +1,28 @@
-version: "3.8"
+version: '3.8'
+
 services:
   booking:
     build: ./services/booking
     ports:
       - "5000:5000"
+
   payment:
     build: ./services/payment
     ports:
       - "5001:5000"
+
   user:
     build: ./services/user
     ports:
       - "5002:5000"
+
   prometheus:
     image: prom/prometheus
     volumes:
       - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
     ports:
       - "9090:9090"
+
   grafana:
     image: grafana/grafana
     ports:
