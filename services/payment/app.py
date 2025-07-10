@@ -3,7 +3,7 @@ from prometheus_client import Counter, generate_latest, CONTENT_TYPE_LATEST
 
 app = Flask(__name__)
 
-# Define Prometheus metric
+# Prometheus metric for counting requests
 REQUEST_COUNTER = Counter('payment_requests_total', 'Total HTTP Requests to Payment Service')
 
 @app.route('/')
