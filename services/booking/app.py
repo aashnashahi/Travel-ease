@@ -6,12 +6,12 @@ app = Flask(__name__)
 # Prometheus metric
 REQUEST_COUNT = Counter('http_requests_total', 'Total HTTP Requests', ['service'])
 
-SERVICE_NAME = 'booking'  # Change this to 'payment' or 'user' in respective services
+SERVICE_NAME = 'booking'  
 
 @app.route('/')
 def home():
-    REQUEST_COUNT.labels(service=booking).inc()
-    return jsonify(message=f"Welcome to the {booking.capitalize()} Service!")
+    REQUEST_COUNT.labels(service=SERVICE_NAME).inc()
+    return jsonify(message=f"Welcome to the {SERVICE_NAME.capitalize()} Service!")
 
 @app.route('/metrics')
 def metrics():
